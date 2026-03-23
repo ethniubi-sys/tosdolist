@@ -10,4 +10,8 @@
 
 ## 部署 Vercel
 
-Settings → Environment Variables 添加 DEEPSEEK_API_KEY、GEMINI_API_KEY、LLM_PROVIDER
+Settings → Environment Variables 添加：
+- `LLM_PROVIDER`（deepseek / gemini / doubao）
+- `DEEPSEEK_API_KEY`（若用 deepseek）
+- `GEMINI_API_KEY`（若用 gemini）
+- `DOUBAO_API_KEY`、`DOUBAO_MODEL`（若用 doubao）
