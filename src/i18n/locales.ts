@@ -21,12 +21,20 @@ const en = {
     phase: 'Phase 2',
     title: 'Micro-habit',
     titleLine2: 'Breakdown',
-    label: 'What micro-action are you willing to do daily for this goal?',
-    placeholder: 'e.g., Stand for 5 minutes',
-    scienceTitle: 'The Science of Small',
-    scienceBody: '"Growth happens in tiny moments. For example, if you choose sports, the smallest level might be ',
-    scienceHighlight: 'standing for 5 minutes',
-    scienceEnd: ' or walking for 5 minutes. The smaller, the harder to fail."',
+    label: 'Choose a suggested micro-action or write your own:',
+    placeholder: 'Or type your own...',
+    aiSuggesting: 'AI is thinking...',
+    aiError: 'Failed to load suggestions',
+    retry: 'Retry',
+    tipsTitle: 'Tips',
+    tipsLoading: 'Loading tips...',
+    tipsRefresh: 'Refresh',
+    defaultTips: [
+      { title: 'The Science of Small', body: 'Growth happens in tiny moments. The smaller the habit, the harder to fail.' },
+      { title: 'Stack Your Habits', body: 'Attach new habits to existing ones. After I [current habit], I will [new habit].' },
+      { title: '2-Minute Rule', body: 'Any new habit should take less than 2 minutes when you first start.' },
+      { title: 'Never Miss Twice', body: "Missing once is an accident. Missing twice is the start of a new (bad) habit." },
+    ],
     next: 'Next',
   },
   onboarding3: {
@@ -66,9 +74,24 @@ const en = {
     xpToNext: '240 XP to next level',
     adjustGoal: 'Adjust & Evolve Goal',
   },
-} as const;
+};
 
-const zh: typeof en = {
+interface TipItem {
+  title: string;
+  body: string;
+}
+
+export interface Translations {
+  header: { onboardingTitle: string; tasksTitle: string; progressTitle: string };
+  nav: { tasks: string; progress: string };
+  onboarding1: { phase: string; titleLine1: string; titleLine2: string; tip: string; placeholder: string; hint: string; next: string };
+  onboarding2: { phase: string; title: string; titleLine2: string; label: string; placeholder: string; aiSuggesting: string; aiError: string; retry: string; tipsTitle: string; tipsLoading: string; tipsRefresh: string; defaultTips: TipItem[]; next: string };
+  onboarding3: { title: string; subtitle: string; hour: string; min: string; morningTitle: string; morningSub: string; nightTitle: string; nightSub: string; start: string };
+  dashboard: { todayFocus: string; fallbackAction: string; dayStreak: string; reminder: string; done: string; checkIn: string; motiveLine1: string; motiveLine2: string; weeklyFlow: string; consistency: string };
+  progress: { momentum: string; dayStreak: string; topAchiever: string; monthlyProgress: string; october: string; consistencyLabel: string; days: string[]; totalAchievements: string; thisMonth: string; evolvedState: string; xpToNext: string; adjustGoal: string };
+}
+
+const zh: Translations = {
   header: {
     onboardingTitle: '你做到了吗？',
     tasksTitle: '任务',
@@ -91,12 +114,20 @@ const zh: typeof en = {
     phase: '第 2 步',
     title: '微习惯',
     titleLine2: '拆解',
-    label: '为了这个目标，你愿意每天做什么微小的行动？',
-    placeholder: '例如：站立 5 分钟',
-    scienceTitle: '微小的科学',
-    scienceBody: '"成长发生在微小的瞬间。比如选择运动，最小的级别可能是',
-    scienceHighlight: '站立 5 分钟',
-    scienceEnd: '或走路 5 分钟。越小，越不容易失败。"',
+    label: '选择 AI 推荐的微行动，或自定义：',
+    placeholder: '或者自己输入...',
+    aiSuggesting: 'AI 思考中...',
+    aiError: '加载建议失败',
+    retry: '重试',
+    tipsTitle: '小贴士',
+    tipsLoading: '加载中...',
+    tipsRefresh: '换一批',
+    defaultTips: [
+      { title: '微小的科学', body: '成长发生在微小的瞬间。习惯越小，越不容易失败。' },
+      { title: '习惯叠加', body: '把新习惯附加到已有习惯上。做完[已有习惯]后，我就[新习惯]。' },
+      { title: '两分钟法则', body: '任何新习惯刚开始时都应该在两分钟内完成。' },
+      { title: '绝不连续错过', body: '错过一次是意外，连续错过两次就是新（坏）习惯的开始。' },
+    ],
     next: '下一步',
   },
   onboarding3: {
@@ -138,7 +169,7 @@ const zh: typeof en = {
   },
 };
 
-const zhHant: typeof en = {
+const zhHant: Translations = {
   header: {
     onboardingTitle: '你做到了嗎？',
     tasksTitle: '任務',
@@ -161,12 +192,20 @@ const zhHant: typeof en = {
     phase: '第 2 步',
     title: '微習慣',
     titleLine2: '拆解',
-    label: '為了這個目標，你願意每天做什麼微小的行動？',
-    placeholder: '例如：站立 5 分鐘',
-    scienceTitle: '微小的科學',
-    scienceBody: '「成長發生在微小的瞬間。比如選擇運動，最小的級別可能是',
-    scienceHighlight: '站立 5 分鐘',
-    scienceEnd: '或走路 5 分鐘。越小，越不容易失敗。」',
+    label: '選擇 AI 推薦的微行動，或自訂：',
+    placeholder: '或者自己輸入...',
+    aiSuggesting: 'AI 思考中...',
+    aiError: '載入建議失敗',
+    retry: '重試',
+    tipsTitle: '小貼士',
+    tipsLoading: '載入中...',
+    tipsRefresh: '換一批',
+    defaultTips: [
+      { title: '微小的科學', body: '成長發生在微小的瞬間。習慣越小，越不容易失敗。' },
+      { title: '習慣疊加', body: '把新習慣附加到已有習慣上。做完[已有習慣]後，我就[新習慣]。' },
+      { title: '兩分鐘法則', body: '任何新習慣剛開始時都應該在兩分鐘內完成。' },
+      { title: '絕不連續錯過', body: '錯過一次是意外，連續錯過兩次就是新（壞）習慣的開始。' },
+    ],
     next: '下一步',
   },
   onboarding3: {
@@ -209,9 +248,9 @@ const zhHant: typeof en = {
 };
 
 export type Lang = 'en' | 'zh' | 'zhHant';
-export type Translations = typeof en;
 
-export const locales: Record<Lang, Translations> = { en, zh, zhHant };
+const _en: Translations = en;
+export const locales: Record<Lang, Translations> = { en: _en, zh, zhHant };
 
 export const langLabels: Record<Lang, string> = {
   en: 'EN',
