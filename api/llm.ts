@@ -30,9 +30,33 @@ async function callGemini(prompt: string): Promise<string> {
   return res.text ?? '';
 }
 
+async function callDoubao(prompt: string): Promise<string> {
+  const model = process.env.DOUBAO_MODEL || 'doubao-seed-1-8-251228';
+  const res = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.DOUBAO_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model,
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.7,
+    }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Doubao API error: ${res.status} ${err}`);
+  }
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content ?? '';
+}
+
 async function chat(prompt: string): Promise<string> {
   const provider = process.env.LLM_PROVIDER || 'deepseek';
-  return provider === 'gemini' ? callGemini(prompt) : callDeepSeek(prompt);
+  if (provider === 'gemini') return callGemini(prompt);
+  if (provider === 'doubao') return callDoubao(prompt);
+  return callDeepSeek(prompt);
 }
 
 function parseJSON<T>(raw: string, fallback: T): T {
@@ -59,7 +83,18 @@ Respond ONLY with a JSON object with keys "en", "zh", "zhHant". Each key maps to
 Example: {"en":[{"title":"Start Tiny","body":"..."}],"zh":[{"title":"从小开始","body":"..."}],"zhHant":[{"title":"從小開始","body":"..."}]}
 Keep the SAME 4 tips per language, same order. No markdown.`;
 
+function setCors(res: VercelResponse) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  setCors(res);
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
     return;
