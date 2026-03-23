@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-headline: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Manrope", sans-serif;
+
+  --color-primary: #6c5a00;
+  --color-primary-dim: #5e4e00;
+  --color-on-primary: #fff2cd;
+  --color-primary-container: #ffd709;
+  --color-on-primary-container: #5b4b00;
+  --color-primary-fixed: #ffd709;
+  --color-primary-fixed-dim: #efc900;
+  --color-on-primary-fixed: #453900;
+  --color-on-primary-fixed-variant: #665500;
+
+  --color-secondary: #565d5f;
+  --color-secondary-dim: #4a5153;
+  --color-on-secondary: #edf4f6;
+  --color-secondary-container: #dde4e6;
+  --color-on-secondary-container: #4c5355;
+  --color-secondary-fixed: #dde4e6;
+  --color-secondary-fixed-dim: #cfd6d8;
+  --color-on-secondary-fixed: #394043;
+  --color-on-secondary-fixed-variant: #565d5f;
+
+  --color-tertiary: #536200;
+  --color-tertiary-dim: #485500;
+  --color-on-tertiary: #e5ff76;
+  --color-tertiary-container: #e3fd74;
+  --color-on-tertiary-container: #516000;
+  --color-tertiary-fixed: #e3fd74;
+  --color-tertiary-fixed-dim: #d5ee68;
+  --color-on-tertiary-fixed: #414d00;
+  --color-on-tertiary-fixed-variant: #5b6b00;
+
+  --color-error: #b02500;
+  --color-error-dim: #b92902;
+  --color-on-error: #ffefec;
+  --color-error-container: #f95630;
+  --color-on-error-container: #520c00;
+
+  --color-outline: #747779;
+  --color-outline-variant: #abadaf;
+
+  --color-background: #f5f7f9;
+  --color-on-background: #2c2f31;
+
+  --color-surface: #f5f7f9;
+  --color-on-surface: #2c2f31;
+  --color-surface-variant: #d9dde0;
+  --color-on-surface-variant: #595c5e;
+  --color-surface-dim: #d0d5d8;
+  --color-surface-bright: #f5f7f9;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eef1f3;
+  --color-surface-container: #e5e9eb;
+  --color-surface-container-high: #dfe3e6;
+  --color-surface-container-highest: #d9dde0;
+
+  --color-inverse-surface: #0b0f10;
+  --color-inverse-on-surface: #9a9d9f;
+  --color-inverse-primary: #ffd709;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-surface font-body antialiased;
+  }
+}
+
+.editorial-shadow {
+  box-shadow: 0 10px 40px -10px rgba(108, 90, 0, 0.1);
+}
+
+.luminous-glow {
+  box-shadow: 0 20px 50px rgba(255, 215, 9, 0.3);
+}
